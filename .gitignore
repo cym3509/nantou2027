@@ -1,0 +1,6 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# No need to commit
+*.log
