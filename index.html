@@ -25,7 +25,7 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding-bottom: 80px; /* space for bottom nav */
+      padding-bottom: 0;
     }
 
     /* ── Header ── */
@@ -313,35 +313,6 @@
       font-size: 0.8rem;
     }
     .page-footer .emoji { font-size: 1.5rem; display: block; margin-bottom: 6px; }
-
-    /* ── Bottom Nav ── */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: white;
-      border-top: 1px solid var(--border);
-      display: flex;
-      z-index: 200;
-      box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
-    }
-    .nav-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 10px 4px 12px;
-      color: var(--text-muted);
-      font-size: 0.68rem;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-      gap: 3px;
-      transition: color 0.2s;
-    }
-    .nav-item .nav-icon { font-size: 1.3rem; }
-    .nav-item.active { color: var(--red); }
 
     /* ── Lightbox ── */
     #lightbox {
@@ -638,22 +609,6 @@
   <p style="margin-top:4px;">祝福大家新年快樂，旅途平安！</p>
 </div>
 
-<!-- ═══════════════════════ BOTTOM NAV ══ -->
-<nav class="bottom-nav">
-  <div class="nav-item active" onclick="scrollToSection('header')">
-    <span class="nav-icon">🏠</span>
-    <span>首頁</span>
-  </div>
-  <div class="nav-item" onclick="scrollToSection('day1')">
-    <span class="nav-icon">🗓️</span>
-    <span>行程</span>
-  </div>
-  <div class="nav-item" onclick="scrollToSection('bar-menu')">
-    <span class="nav-icon">🍸</span>
-    <span>酒單</span>
-  </div>
-</nav>
-
 <!-- ═══════════════════════ LIGHTBOX ══ -->
 <div id="lightbox" onclick="closeLightbox()">
   <div class="close-btn">✕</div>
@@ -705,11 +660,6 @@
     document.body.style.overflow = '';
   }
 
-  // ── Scroll to section ──
-  function scrollToSection(id) {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
   // ── Scroll animation ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -720,25 +670,6 @@
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  // ── Bottom nav active state ──
-  const sections = ['header', 'day1', 'day2', 'day3', 'bar-menu'];
-  const navItems = document.querySelectorAll('.nav-item');
-  const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const idx = sections.indexOf(e.target.id);
-        if (idx >= 0) {
-          navItems.forEach(n => n.classList.remove('active'));
-          navItems[idx]?.classList.add('active');
-        }
-      }
-    });
-  }, { threshold: 0.3 });
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) sectionObserver.observe(el);
-  });
 </script>
 
 </body>
