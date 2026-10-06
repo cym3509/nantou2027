@@ -405,57 +405,6 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════ BAR MENU ══ -->
-<div class="divider fade-up" id="bar-menu"><span class="divider-icon">🍸</span></div>
-<section class="section fade-up">
-  <div class="card">
-    <div class="card-title"><span class="icon">🍸</span>私人酒吧派對 · 酒單</div>
-    <p style="color:rgba(253,246,227,0.5);font-size:0.85rem;margin-bottom:1rem;">
-      私人酒吧派對酒單 · 點擊可放大檢視
-    </p>
-
-    <!-- Toggle button -->
-    <button
-      onclick="toggleMenu()"
-      id="menu-toggle-btn"
-      style="
-        width:100%;
-        background:rgba(212,160,23,0.12);
-        border:1px solid rgba(212,160,23,0.3);
-        border-radius:0.6rem;
-        padding:0.75rem 1rem;
-        color:#e8c98a;
-        font-size:0.9rem;
-        cursor:pointer;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        gap:0.5rem;
-        transition:background 0.2s;
-      "
-    >
-      <span id="menu-toggle-text">📸 展開酒單</span>
-      <span id="menu-toggle-arrow">▼</span>
-    </button>
-
-    <!-- Collapsible image grid -->
-    <div id="menu-images" style="display:none; margin-top:1rem;">
-      <img
-        src="bar-menu-1.jpg"
-        alt="酒單第一頁"
-        onclick="openLightbox(this)"
-        style="width:100%;border-radius:0.6rem;cursor:zoom-in;border:1px solid rgba(212,160,23,0.2);"
-      />
-      <img
-        src="bar-menu-2.jpg"
-        alt="酒單第二頁"
-        onclick="openLightbox(this)"
-        style="width:100%;border-radius:0.6rem;cursor:zoom-in;border:1px solid rgba(212,160,23,0.2);margin-top:0.75rem;"
-      />
-    </div>
-  </div>
-</section>
-
 <!-- ══════════════════════════════════ ITINERARY ══ -->
 <div class="divider fade-up"><span class="divider-icon">🗓️</span></div>
 <section class="section fade-up">
@@ -617,6 +566,57 @@
   <p style="margin-top:0.3rem">祝福大家新年快樂，旅途平安！</p>
 </footer>
 
+<!-- ═══════════════════════════════ BAR MENU ══ -->
+<div class="divider fade-up" id="bar-menu"><span class="divider-icon">🍸</span></div>
+<section class="section fade-up">
+  <div class="card">
+    <div class="card-title"><span class="icon">🍸</span>私人酒吧派對 · 酒單</div>
+    <p style="color:rgba(253,246,227,0.5);font-size:0.85rem;margin-bottom:1rem;">
+      私人酒吧派對酒單 · 點擊可放大檢視
+    </p>
+
+    <!-- Toggle button -->
+    <button
+      onclick="toggleMenu()"
+      id="menu-toggle-btn"
+      style="
+        width:100%;
+        background:rgba(212,160,23,0.12);
+        border:1px solid rgba(212,160,23,0.3);
+        border-radius:0.6rem;
+        padding:0.75rem 1rem;
+        color:#e8c98a;
+        font-size:0.9rem;
+        cursor:pointer;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:0.5rem;
+        transition:background 0.2s;
+      "
+    >
+      <span id="menu-toggle-text">📸 展開酒單</span>
+      <span id="menu-toggle-arrow">▼</span>
+    </button>
+
+    <!-- Collapsible image grid -->
+    <div id="menu-images" style="display:none; margin-top:1rem;">
+      <img
+        src="bar-menu-1.jpg"
+        alt="酒單第一頁"
+        onclick="openLightbox(this)"
+        style="width:100%;border-radius:0.6rem;cursor:zoom-in;border:1px solid rgba(212,160,23,0.2);"
+      />
+      <img
+        src="bar-menu-2.jpg"
+        alt="酒單第二頁"
+        onclick="openLightbox(this)"
+        style="width:100%;border-radius:0.6rem;cursor:zoom-in;border:1px solid rgba(212,160,23,0.2);margin-top:0.75rem;"
+      />
+    </div>
+  </div>
+</section>
+
 <!-- ════════════════════════════════════════════ JS ══ -->
 <script>
   function toggleDay(id) {
@@ -653,9 +653,10 @@
   // ── Bar Menu Toggle ──
   let menuOpen = false;
   function toggleMenu(forceOpen) {
-    // If forceOpen is true, open regardless of current state
     if (forceOpen !== undefined) {
-      menuOpen = !forceOpen; // flip so next line opens
+      menuOpen = forceOpen;
+    } else {
+      menuOpen = !menuOpen;
     }
     const container = document.getElementById('menu-images');
     const text = document.getElementById('menu-toggle-text');
@@ -673,13 +674,7 @@
 
   // ── Scroll to Bar Menu + Auto-open ──
   function scrollToBarMenu() {
-    // Open the menu first
-    toggleMenu(true);
-    menuOpen = true;
-    document.getElementById('menu-images').style.display = 'block';
-    document.getElementById('menu-toggle-text').textContent = '📸 收合酒單';
-    document.getElementById('menu-toggle-arrow').textContent = '▲';
-    // Scroll to it
+    toggleMenu(true);  // force open
     document.getElementById('bar-menu').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 </script>
