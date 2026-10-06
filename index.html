@@ -406,7 +406,7 @@
 </section>
 
 <!-- ═══════════════════════════════ BAR MENU ══ -->
-<div class="divider fade-up"><span class="divider-icon">🍸</span></div>
+<div class="divider fade-up" id="bar-menu"><span class="divider-icon">🍸</span></div>
 <section class="section fade-up">
   <div class="card">
     <div class="card-title"><span class="icon">🍸</span>私人酒吧派對 · 酒單</div>
@@ -504,6 +504,20 @@
           <div class="event-card event-highlight">
             <div class="event-name">🍸 私人酒吧派對</div>
             <div class="event-note">老闆到現場調酒 🎉</div>
+            <button
+              onclick="scrollToBarMenu()"
+              style="
+                margin-top:0.6rem;
+                background:rgba(192,57,43,0.2);
+                border:1px solid rgba(192,57,43,0.4);
+                border-radius:0.5rem;
+                padding:0.4rem 0.85rem;
+                color:#f0c8a0;
+                font-size:0.8rem;
+                cursor:pointer;
+                width:100%;
+              "
+            >🍸 看酒單</button>
           </div>
         </div>
       </div>
@@ -638,8 +652,11 @@
 
   // ── Bar Menu Toggle ──
   let menuOpen = false;
-  function toggleMenu() {
-    menuOpen = !menuOpen;
+  function toggleMenu(forceOpen) {
+    // If forceOpen is true, open regardless of current state
+    if (forceOpen !== undefined) {
+      menuOpen = !forceOpen; // flip so next line opens
+    }
     const container = document.getElementById('menu-images');
     const text = document.getElementById('menu-toggle-text');
     const arrow = document.getElementById('menu-toggle-arrow');
@@ -652,6 +669,18 @@
       text.textContent = '📸 展開酒單';
       arrow.textContent = '▼';
     }
+  }
+
+  // ── Scroll to Bar Menu + Auto-open ──
+  function scrollToBarMenu() {
+    // Open the menu first
+    toggleMenu(true);
+    menuOpen = true;
+    document.getElementById('menu-images').style.display = 'block';
+    document.getElementById('menu-toggle-text').textContent = '📸 收合酒單';
+    document.getElementById('menu-toggle-arrow').textContent = '▲';
+    // Scroll to it
+    document.getElementById('bar-menu').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 </script>
 
